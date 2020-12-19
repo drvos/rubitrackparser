@@ -1,15 +1,15 @@
 use strict;
 use warnings;
  
-use 5.008;
- 
+use 5.024;
+
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-    NAME          => 'rubiTrack2Web',
-    AUTHOR        => 'Volker Schering <mail@volker-schering.de>',
-    VERSION_FROM  => 'lib/rT2Web.pm',
-    ABSTRACT_FROM => 'lib/rT2Web.pm',
+    NAME          => 'rtParser',
+    AUTHOR        => 'Volker Schering <mail@volker-schering>',
+    VERSION_FROM  => 'lib/rtParser.pm',
+    ABSTRACT_FROM => 'lib/rtParser.pm',
     LICENSE       => 'perl',
     PREREQ_PM     => {
           'File::Basename' => '0',
@@ -19,10 +19,9 @@ WriteMakefile
           'Test::More' => '0.47'
     },
     BUILD_REQUIRES => {
-          'Other::Module' => '0'
     },
     EXE_FILES => [
-           'script/rubitrackparser.pl'
+           'script/rtParser.pl'
     ],
     META_MERGE    => {
         'meta-spec' => { version => 1 },
@@ -36,5 +35,5 @@ WriteMakefile
              homepage   => 'https://volker-schering.de',
          },
     },
- 
+
 );
