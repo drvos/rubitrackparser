@@ -12,8 +12,9 @@ WriteMakefile
     ABSTRACT_FROM => 'lib/rtParser.pm',
     LICENSE       => 'perl',
     PREREQ_PM     => {
-          'File::Basename' => '0',
-          'Moose'          => '0.24',
+          'File::Basename'  => '0',
+          'Moose'           => '0.24',
+          'HTML::TagParser' => '0.20',
     },
     TEST_REQUIRES => {
           'Test::More' => '0.47'
