@@ -58,14 +58,14 @@ has 'date' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'time' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'laps' => ( is => 'rw', isa => 'Int', required => 0, default => 0 );
 has 'activity' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'averagespeed' => ( 
+has 'avgspeed' => ( 
     is => 'rw', 
     isa => 'Str', 
     trigger => sub {
         my $self = shift;
-        my $averagespeed = $data[0]{'Durchschn. Geschwindigkeit'};
-        if (defined $averagespeed) {
-            my $g = int(substr( $averagespeed, 0, index( $averagespeed, ',' ) ) );
+        my $avgspeed = $data[0]{'Durchschn. Geschwindigkeit'};
+        if (defined $avgspeed) {
+            my $g = int(substr( $avgspeed, 0, index( $avgspeed, ',' ) ) );
             if ($g > 18) {
                 $self->activity('Radfahren');
             } else {
@@ -74,12 +74,27 @@ has 'averagespeed' => (
         }
     } 
 );
+has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'avgheartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'cadence' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'increase' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'weather' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 
 =head1 METHODS
 
 =head2 _parseData
 
-Ermittelt den Ort aus dem Titel-Tag (<title>) der übergebenen Datei.
+Ermittelt die Daten aus der übergebenen Datei:
+* Ort, Datum und Uhrzeit
+* Distanz und Dauer der Aktivität
+* Verschiedene Durchschnittswerte
+* Wetter und Temperatur
+
+Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit gewählt: 
+Laufen oder Radfahren
 
 =cut
 
@@ -110,8 +125,17 @@ sub _parseData {
     $self->time($data[0]{'Uhrzeit'});
     # Runden
     $self->laps(--$i);
-    # Durschnittliche Geschwindigkeit
-    $self->averagespeed($data[0]{'Durchschn. Geschwindigkeit'});
+    # Geschwindigkeit bzw. Pace
+    if ($self->activity eq 'Laufen') {
+        $self->maxspeed($data[0]{'Maximale Pace'});
+        $self->avgspeed($data[0]{'Durchschn. Pace'});
+    } else {
+        $self->maxspeed($data[0]{'Maximale Geschwindigkeit'});
+        $self->avgspeed($data[0]{'Durchschn. Geschwindigkeit'});
+    }
+    # Aktive Distanz und Dauer
+    $self->distance($data[0]{'Aktive Distanz'});
+    $self->duration($data[0]{'Aktive Dauer'});
 }
 
 =head1 DEPENDENCIES
