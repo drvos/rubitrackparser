@@ -28,7 +28,6 @@ rtParser - Parser von exportierten Informationen aus der Software L<rubiTrack Pr
 
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
-Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
 
 =over
 
@@ -38,6 +37,7 @@ HTML-Tabelle
 
 =back
 
+Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
 Ermittelt folgende Daten aus der übergebenen Datei:
 
 =over
@@ -82,7 +82,7 @@ alles darüber 'Radfahren'.
 
 =over
 
-=item S<avgspeed    Durchschnitliche Geschwindigkeit oder Pace>
+=item S<avgspeed    Durchschnittliche Geschwindigkeit oder Pace>
 
 =item S<maxspeed    Maximale Geschwindigkeit oder Pace>
 

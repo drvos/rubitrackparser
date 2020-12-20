@@ -10,10 +10,10 @@ rtParser - Parser von exportierten Informationen aus der Software [rubiTrack Pro
 
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
-Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
 
 1. HTML-Tabelle
 
+Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
 Ermittelt folgende Daten aus der übergebenen Datei:
 
 - Ort, Datum und Uhrzeit
@@ -39,7 +39,7 @@ alles darüber 'Radfahren'.
 
 ## Zusammenfassung und Runden
 
-- avgspeed    Durchschnitliche Geschwindigkeit oder Pace
+- avgspeed    Durchschnittliche Geschwindigkeit oder Pace
 - maxspeed    Maximale Geschwindigkeit oder Pace
 - distance    Distanz
 - duration    Dauer
