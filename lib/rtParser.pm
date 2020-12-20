@@ -26,11 +26,9 @@ rtParser - Parser von exportierten Informationen aus der Software L<rubiTrack Pr
 
 =head1 DESCRIPTION
 
-Diese Klasse repräsentiert Exporte aus rubiTrack Pro, 
-die mit der "Veröffentlichen" Funktion erstellt wurden.
-Diese Daten können in verschiedenen Formaten ausgegeben werden, bisher nur als HTML-Tabelle.
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
+Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
 
 =over
 

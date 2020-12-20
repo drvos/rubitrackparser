@@ -8,10 +8,9 @@ rtParser - Parser von exportierten Informationen aus der Software [rubiTrack Pro
 
 # DESCRIPTION
 
-Exporte aus rubiTrack Pro, die mit der "Veröffentlichen" Funktion erstellt werden 
-als Eintrag im Blog veröffentlichen.
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
+Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
 
 1. HTML-Tabelle
 
