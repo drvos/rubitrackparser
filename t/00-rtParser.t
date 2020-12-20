@@ -39,6 +39,9 @@ is( $p->duration, '1:32:35 hrs', sprintf("duration: %s", $p->duration) );
 can_ok($p, qw(heartrate));
 is( $p->heartrate, '142 bpm', sprintf("heartrate: %s", $p->heartrate) );
 
+can_ok($p, qw(increase));
+is( $p->increase, '45 m', sprintf("increase: %s", $p->increase) );
+
 can_ok($p, qw(cadence power));
 is( $p->cadence, '82 rpm', sprintf("cadence: %s", $p->cadence) );
 is( $p->power, '273 Watt', sprintf("power: %s", $p->power) );

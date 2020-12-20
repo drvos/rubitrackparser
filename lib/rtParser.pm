@@ -149,10 +149,14 @@ sub _setAttributes
     # Herzfrequenz
     $self->heartrate($data[$lap]{'Durchschn. Herzfrequenz'});
     $self->cadence($data[$lap]{'Durchschn. Kadenz'});
-
+    # Anstieg
+    $self->increase($data[$lap]{'Anstieg'});
     # Kadenz und Leistung
     $self->cadence($data[$lap]{'Durchschn. Kadenz'});
     $self->power($data[$lap]{'Durchschn. Leistung'});
+    # Wetter und Temperatur
+    $self->weather($data[$lap]{'Wetter'});
+    $self->temperature($data[$lap]{'Temperatur'});
 }
 
 =head1 DEPENDENCIES
