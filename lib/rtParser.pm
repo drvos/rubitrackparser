@@ -7,11 +7,10 @@ use Data::Dumper;
 
 use namespace::autoclean;
 
-use v5.024;
+use v5.018;
 
 our $VERSION = '0.1';
 my @data;
-my @values = qw("Aktive Distanz" "Aktive Dauer" "Durschn. Herzfrequenz" "Durschn. Kadenz" "Durschn. Geschwindigkeit" "Anstieg" "Maximale Geschwindigkeit" "Wetter" "Temperatur");
 
 =pod
 

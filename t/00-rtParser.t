@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use v5.024;
+use v5.018;
 
 use Test::More 'no_plan';
 
