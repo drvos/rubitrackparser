@@ -17,8 +17,9 @@ WriteMakefile
           'HTML::TagParser' => '0.20',
     },
     TEST_REQUIRES => {
-          'Test::More' => '0.47',
-          'Test::Pod'  => '1.52',
+          'Test::More'      => '0.47',
+          'Test::Pod'       => '1.52',
+          'Test::Compile'   => '2.4.1',
     },
     BUILD_REQUIRES => {
     },

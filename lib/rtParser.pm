@@ -173,7 +173,7 @@ sub _parseData
         $i++;
     }
 
-    print Dumper(@data);
+    #print Dumper(@data);
     
     # Ort
     my $elem = $html->getElementsByTagName( "title" );
