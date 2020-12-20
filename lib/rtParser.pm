@@ -31,15 +31,31 @@ als Eintrag im Blog veröffentlichen.
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
 
-* HTML-Tabelle
+=over
+
+=item 1
+
+HTML-Tabelle
+
+=back
 
 Ermittelt folgende Daten aus der übergebenen Datei:
-* Ort, Datum und Uhrzeit
-* Art der Aktivität
-* Distanz und Dauer der Aktivität
-* Verschiedene Durchschnittswerte
-* Anstieg
-* Wetter und Temperatur
+
+=over
+
+=item Ort, Datum und Uhrzeit
+
+=item Art der Aktivität
+
+=item Distanz und Dauer der Aktivität
+
+=item Verschiedene Durchschnittswerte
+
+=item Anstieg
+
+=item Wetter und Temperatur
+
+=back
 
 Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt. 
 Eine Durchschnittsgeschwindigkeit kleiner 18 km/h ergibt 'Laufen',
@@ -47,23 +63,47 @@ alles darüber 'Radfahren'.
 
 =head1 ATTRIBUTES
 
-* Zusammenfassung
-** location     - Ort
-** date         - Datum
-** time         - Uhrzeit
-** laps         - Runden
-** activity     - Art der Aktivität
-* Zusammenfassung und Runden
-** avgspeed     - Durchschnitliche Geschwindigkeit oder Pace
-** maxspeed     - Maximale Geschwindigkeit oder Pace
-** distance	    - Distanz
-** duration	    - Dauer
-** heartrate	- Herzfrequenz
-** cadence	    - Kadenz
-** power	    - Leistung
-** increase	    - Anstieg
-** weather	    - Wetter
-** temperature	- Temperatur
+=head2 Zusammenfassung der Aktivität
+
+=over
+
+=item S<location    Ort>
+
+=item S<date        Datum>
+
+=item S<time        Uhrzeit>
+
+=item S<laps        Runden>
+
+=item S<activity    Art der Aktivität>
+
+=back
+
+=head2 Zusammenfassung und Runden
+
+=over
+
+=item S<avgspeed    Durchschnitliche Geschwindigkeit oder Pace>
+
+=item S<maxspeed    Maximale Geschwindigkeit oder Pace>
+
+=item S<distance    Distanz>
+
+=item S<duration    Dauer>
+
+=item S<heartrate   Herzfrequenz>
+
+=item S<cadence     Kadenz>
+
+=item S<power       Leistung>
+
+=item S<increase    Anstieg>
+
+=item S<weather     Wetter>
+
+=item S<temperature Temperatur>
+
+=back
 
 =cut
 
@@ -114,8 +154,6 @@ has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 
 =head1 METHODS
 
-=head2 _parseData
-
 =cut
 
 sub _parseData 
@@ -148,10 +186,6 @@ sub _parseData
     $self->laps(--$i);
     $self->_setAttributes(0);
 }
-
-=head2 _setAttributes
-
-=cut
 
 sub _setAttributes 
 {
