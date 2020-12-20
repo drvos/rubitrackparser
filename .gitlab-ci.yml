@@ -10,6 +10,5 @@ unitTestsLatest:
     image: perl:latest
     stage: test
     script:
-      - REPORT_TEST_ENVIRONMENT=1 perl Build test
-      - cpanm DBI
-      - REPORT_TEST_ENVIRONMENT=1 perl Build test
+      - make test
+      - prove -lv
