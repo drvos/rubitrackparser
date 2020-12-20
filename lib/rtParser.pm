@@ -18,7 +18,7 @@ my @data;
 
 =head1 NAME
 
-rtParser - Parser von exportierten Informationen aus der Software rubiTrack Pro
+rtParser - Parser von exportierten Informationen aus der Software L<rubiTrack Pro|https://www.rubitrack.com>
 
 =head1 SYNOPSIS
 
@@ -29,8 +29,8 @@ rtParser - Parser von exportierten Informationen aus der Software rubiTrack Pro
 Exporte aus rubiTrack Pro, die mit der "Veröffentlichen" Funktion erstellt werden 
 als Eintrag im Blog veröffentlichen.
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
-bestimmten Informationen und zwei Bildern (activity und chart) des Exports einen
-Wordpress-Beitrag auf VOSLOG
+bestimmten Informationen des Exports eine formatierte Ausgabe:
+* HTML-Tabelle
 
 =head1 ATTRIBUTES
 
@@ -91,6 +91,7 @@ Ermittelt die Daten aus der übergebenen Datei:
 * Ort, Datum und Uhrzeit
 * Distanz und Dauer der Aktivität
 * Verschiedene Durchschnittswerte
+* Anstieg
 * Wetter und Temperatur
 
 Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit gewählt: 
