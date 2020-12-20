@@ -5,3 +5,5 @@ blib/
 inc/
 pm_to_blib
 .DS_Store
+script/a.pl
+script/rtParser.pl
