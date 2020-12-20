@@ -30,11 +30,40 @@ Exporte aus rubiTrack Pro, die mit der "Veröffentlichen" Funktion erstellt werd
 als Eintrag im Blog veröffentlichen.
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
+
 * HTML-Tabelle
+
+Ermittelt folgende Daten aus der übergebenen Datei:
+* Ort, Datum und Uhrzeit
+* Art der Aktivität
+* Distanz und Dauer der Aktivität
+* Verschiedene Durchschnittswerte
+* Anstieg
+* Wetter und Temperatur
+
+Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt. 
+Eine Durchschnittsgeschwindigkeit kleiner 18 km/h ergibt 'Laufen',
+alles darüber 'Radfahren'. 
 
 =head1 ATTRIBUTES
 
-...
+* Zusammenfassung
+** location     - Ort
+** date         - Datum
+** time         - Uhrzeit
+** laps         - Runden
+** activity     - Art der Aktivität
+* Zusammenfassung und Runden
+** avgspeed     - Durchschnitliche Geschwindigkeit oder Pace
+** maxspeed     - Maximale Geschwindigkeit oder Pace
+** distance	    - Distanz
+** duration	    - Dauer
+** heartrate	- Herzfrequenz
+** cadence	    - Kadenz
+** power	    - Leistung
+** increase	    - Anstieg
+** weather	    - Wetter
+** temperature	- Temperatur
 
 =cut
 
@@ -87,17 +116,6 @@ has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 
 =head2 _parseData
 
-Ermittelt die Daten aus der übergebenen Datei:
-* Ort, Datum und Uhrzeit
-* Distanz und Dauer der Aktivität
-* Verschiedene Durchschnittswerte
-* Anstieg
-* Wetter und Temperatur
-
-Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit gewählt: 
-Eine Durchschnittsgeschwindigkeit von kleiner 18 km/h ergibt 'Laufen',
-alles darüber 'Radfahren'. 
-
 =cut
 
 sub _parseData 
@@ -131,6 +149,10 @@ sub _parseData
     $self->_setAttributes(0);
 }
 
+=head2 _setAttributes
+
+=cut
+
 sub _setAttributes 
 {
     my $self = shift;
@@ -158,6 +180,16 @@ sub _setAttributes
     # Wetter und Temperatur
     $self->weather($data[$lap]{'Wetter'});
     $self->temperature($data[$lap]{'Temperatur'});
+}
+
+=head2 as_html
+
+=cut
+
+sub as_html
+{
+    my $self = shift;
+
 }
 
 =head1 DEPENDENCIES
