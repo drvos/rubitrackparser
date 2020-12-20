@@ -24,10 +24,10 @@ Wordpress-Beitrag auf VOSLOG
 ## \_parseData
 
 Ermittelt die Daten aus der übergebenen Datei:
-\* Ort, Datum und Uhrzeit
-\* Distanz und Dauer der Aktivität
-\* Verschiedene Durchschnittswerte
-\* Wetter und Temperatur
+* Ort, Datum und Uhrzeit
+* Distanz und Dauer der Aktivität
+* Verschiedene Durchschnittswerte
+* Wetter und Temperatur
 
 Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit gewählt: 
 Laufen oder Radfahren
