@@ -19,12 +19,16 @@ is( $p->rtexportfile, 't/20201213-140543.html', sprintf("Get filename RubiTrackE
 
 #
 # Ort
-can_ok($p, 'ort');
-is( $p->ort, 'Templin, Stadtseerunde', sprintf("ort: %s", $p->ort) );
+can_ok($p, 'location');
+is( $p->location, 'Templin, Stadtseerunde', sprintf("location: %s", $p->location) );
 
 #
-can_ok($p, qw(datum uhrzeit runden));
-is( $p->datum, '13.12.2020', sprintf("datum: %s", $p->datum) );
-is( $p->uhrzeit, '14:05', sprintf("uhrzeit: %s", $p->uhrzeit) );
-is( $p->runden, 15, sprintf("runden: %s", $p->runden) );
+can_ok($p, qw(date time laps));
+is( $p->date, '13.12.2020', sprintf("date: %s", $p->date) );
+is( $p->time, '14:05', sprintf("time: %s", $p->time) );
+is( $p->laps, 15, sprintf("laps: %s", $p->laps) );
 
+#
+can_ok($p, qw(activity averagespeed));
+is( $p->activity, 'Laufen', sprintf("activity: %s", $p->activity) );
+is( $p->averagespeed, '9,1 km/h', sprintf("averagespeed: %s", $p->averagespeed) );

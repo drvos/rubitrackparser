@@ -11,6 +11,7 @@ use v5.024;
 
 our $VERSION = '0.1';
 my @data;
+my @values = qw("Aktive Distanz" "Aktive Dauer" "Durschn. Herzfrequenz" "Durschn. Kadenz" "Durschn. Geschwindigkeit" "Anstieg" "Maximale Geschwindigkeit" "Wetter" "Temperatur");
 
 =pod
 
@@ -52,10 +53,27 @@ has 'rtexportfile' => (
         return
     }
 );
-has 'ort' => ( is  => 'rw', isa => 'Str', required => 0, default => '' );
-has 'datum' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'uhrzeit' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'runden' => ( is => 'rw', isa => 'Int', required => 0, default => 0 );
+has 'location' => ( is  => 'rw', isa => 'Str', required => 0, default => '' );
+has 'date' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'time' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'laps' => ( is => 'rw', isa => 'Int', required => 0, default => 0 );
+has 'activity' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'averagespeed' => ( 
+    is => 'rw', 
+    isa => 'Str', 
+    trigger => sub {
+        my $self = shift;
+        my $averagespeed = $data[0]{'Durchschn. Geschwindigkeit'};
+        if (defined $averagespeed) {
+            my $g = int(substr( $averagespeed, 0, index( $averagespeed, ',' ) ) );
+            if ($g > 18) {
+                $self->activity('Radfahren');
+            } else {
+                $self->activity('Laufen');
+            }
+        }
+    } 
+);
 
 =head1 METHODS
 
@@ -81,17 +99,19 @@ sub _parseData {
         $i++;
     }
 
-    #print Dumper(@data);
+    print Dumper(@data);
     
     # Ort
     my $elem = $html->getElementsByTagName( "title" );
-    $self->ort( $elem->innerText() ) if ref $elem;
+    $self->location( $elem->innerText() ) if ref $elem;
     # Datum
-    $self->datum($data[0]{'Datum'});
+    $self->date($data[0]{'Datum'});
     # Uhrzeit
-    $self->uhrzeit($data[0]{'Uhrzeit'});
+    $self->time($data[0]{'Uhrzeit'});
     # Runden
-    $self->runden(--$i);
+    $self->laps(--$i);
+    # Durschnittliche Geschwindigkeit
+    $self->averagespeed($data[0]{'Durchschn. Geschwindigkeit'});
 }
 
 =head1 DEPENDENCIES
