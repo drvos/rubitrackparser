@@ -74,9 +74,9 @@ has 'avgspeed' => (
     } 
 );
 has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'avgheartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'cadence' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'increase' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'weather' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
@@ -93,11 +93,13 @@ Ermittelt die Daten aus der übergebenen Datei:
 * Wetter und Temperatur
 
 Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit gewählt: 
-Laufen oder Radfahren
+Eine Durchschnittsgeschwindigkeit von kleiner 18 km/h ergibt 'Laufen',
+alles darüber 'Radfahren'. 
 
 =cut
 
-sub _parseData {
+sub _parseData 
+{
     my $self =shift;
     my $i = 0;
     my $html = HTML::TagParser->new( $self->rtexportfile );
@@ -124,17 +126,29 @@ sub _parseData {
     $self->time($data[0]{'Uhrzeit'});
     # Runden
     $self->laps(--$i);
+    $self->_setAttributes(0);
+}
+
+sub _setAttributes 
+{
+    my $self = shift;
+    my $lap = shift; # Runde 0 = Zusammenfassung
+
     # Geschwindigkeit bzw. Pace
     if ($self->activity eq 'Laufen') {
-        $self->maxspeed($data[0]{'Maximale Pace'});
-        $self->avgspeed($data[0]{'Durchschn. Pace'});
+        $self->maxspeed($data[$lap]{'Maximale Pace'});
+        $self->avgspeed($data[$lap]{'Durchschn. Pace'});
     } else {
-        $self->maxspeed($data[0]{'Maximale Geschwindigkeit'});
-        $self->avgspeed($data[0]{'Durchschn. Geschwindigkeit'});
+        $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
+        $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
     }
     # Aktive Distanz und Dauer
-    $self->distance($data[0]{'Aktive Distanz'});
-    $self->duration($data[0]{'Aktive Dauer'});
+    $self->distance($data[$lap]{'Aktive Distanz'});
+    $self->duration($data[$lap]{'Aktive Dauer'});
+    # Herzfrequenz und Kadenz
+    $self->distance($data[$lap]{'Durchschn. Herzfrequenz'});
+    $self->duration($data[$lap]{'Durchschn. Kadenz'});
+
 }
 
 =head1 DEPENDENCIES
