@@ -78,6 +78,7 @@ has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'cadence' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'power' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'increase' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'weather' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
@@ -145,10 +146,13 @@ sub _setAttributes
     # Aktive Distanz und Dauer
     $self->distance($data[$lap]{'Aktive Distanz'});
     $self->duration($data[$lap]{'Aktive Dauer'});
-    # Herzfrequenz und Kadenz
-    $self->distance($data[$lap]{'Durchschn. Herzfrequenz'});
-    $self->duration($data[$lap]{'Durchschn. Kadenz'});
+    # Herzfrequenz
+    $self->heartrate($data[$lap]{'Durchschn. Herzfrequenz'});
+    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
 
+    # Kadenz und Leistung
+    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
+    $self->power($data[$lap]{'Durchschn. Leistung'});
 }
 
 =head1 DEPENDENCIES
