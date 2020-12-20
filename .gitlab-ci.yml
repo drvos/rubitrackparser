@@ -1,0 +1,7 @@
+stages:
+  - test
+ 
+before_script:
+  - cpanm Test::More
+  - cpanm --installdeps .
+  - perl Makefile.PL
