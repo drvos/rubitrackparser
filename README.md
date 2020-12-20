@@ -14,7 +14,8 @@ bestimmten Informationen des Exports eine formatierte Ausgabe:
 1. HTML-Tabelle
 
 Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
-Ermittelt folgende Daten aus der übergebenen Datei:
+
+Folgende Daten werden aus der übergebenen Datei ermittelt:
 
 - Ort, Datum und Uhrzeit
 - Art der Aktivität

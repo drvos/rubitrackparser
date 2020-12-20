@@ -38,7 +38,8 @@ HTML-Tabelle
 =back
 
 Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
-Ermittelt folgende Daten aus der übergebenen Datei:
+
+Folgende Daten werden aus der übergebenen Datei ermittelt:
 
 =over
 
