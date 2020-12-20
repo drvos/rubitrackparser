@@ -1,7 +1,7 @@
 use strict;
 use warnings;
  
-use 5.024;
+use 5.018;
 
 use ExtUtils::MakeMaker;
 WriteMakefile
@@ -17,12 +17,12 @@ WriteMakefile
           'HTML::TagParser' => '0.20',
     },
     TEST_REQUIRES => {
-          'Test::More' => '0.47'
+          'Test::More' => '0.47',
+          'Test::Pod'  => '1.52',
     },
     BUILD_REQUIRES => {
     },
     EXE_FILES => [
-           'script/rtParser.pl'
     ],
     META_MERGE    => {
         'meta-spec' => { version => 1 },
