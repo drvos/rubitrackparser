@@ -196,8 +196,6 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=pod
-
 =encoding utf8
 
 =head1 NAME
@@ -207,7 +205,10 @@ Software L<rubiTrack Pro|https://www.rubitrack.com>
 
 =head1 SYNOPSIS
 
-...
+  
+  use rtParser;
+  my $p = rtParser->new( 'rtexportfile' => '/rubi/track/export.html' );
+  say $p->as_html();
 
 =head1 DESCRIPTION
 

@@ -5,7 +5,9 @@ Software [rubiTrack Pro](https://www.rubitrack.com)
 
 # SYNOPSIS
 
-...
+    use rtParser;
+    my $p = rtParser->new( 'rtexportfile' => '/rubi/track/export.html' );
+    say $p->as_html();
 
 # DESCRIPTION
 
@@ -106,6 +108,8 @@ Folgende Attribute sind enthalten:
 
 ## as\_markdown
 
+...
+
 # DEPENDENCIES
 
 [rtParser](https://metacpan.org/pod/rtParser) requires [Moose](https://metacpan.org/pod/Moose), [HTML::TagParser](https://metacpan.org/pod/HTML%3A%3ATagParser).
@@ -113,3 +117,10 @@ Folgende Attribute sind enthalten:
 # AUTHOR
 
 Volker Schering <mail@volker-schering.de>
+
+# COPYRIGHT AND LICENSE
+
+Copyright 2020 by Volker Schering
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
