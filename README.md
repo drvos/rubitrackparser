@@ -73,6 +73,7 @@ Folgende Attribute sind enthalten:
 ...
 
 <div>
+    <table border='1'>
       <tr align='right'>
         <td>Distanz:</td>
         <td>14,08 km</td>
@@ -86,21 +87,24 @@ Folgende Attribute sind enthalten:
         <td>82 rpm</td>
       </tr>
       <tr align='right'>
-        <td>Geschwindigkeit:</td>
-        <td>9,1 km/h</td>
-        <td>Anstieg:</td>
-        <td>45 m</td>
+        <td>Pace:</td>
+        <td>6:34 min/km</td>
+        <td>Maximal:</td>
+        <td>5:45 min/km</td>
       </tr>
       <tr align='right'>
-        <td>Max. Geschwindigkeit:</td>
-        <td>10,4 km/h</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
+        <td>Anstieg:</td>
+        <td>45 m</td>
       </tr>
       <tr>
         <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
       </tr>
+    </table>
 </div>
+
+## as\_markdown
 
 # DEPENDENCIES
 

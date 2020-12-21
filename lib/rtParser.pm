@@ -50,6 +50,8 @@ has 'avgspeed' => (
     } 
 );
 has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'avgpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'maxpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
@@ -101,14 +103,11 @@ sub _setAttributes
     my $self = shift;
     my $lap = shift; # Runde 0 = Zusammenfassung
 
-    # Geschwindigkeit bzw. Pace
-    if ($self->activity eq 'Laufen') {
-        $self->maxspeed($data[$lap]{'Maximale Pace'});
-        $self->avgspeed($data[$lap]{'Durchschn. Pace'});
-    } else {
-        $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
-        $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
-    }
+    # Geschwindigkeit und Pace
+    $self->maxpace($data[$lap]{'Maximaler Pace'});
+    $self->avgpace($data[$lap]{'Durchschn. Pace'});
+    $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
+    $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
     # Aktive Distanz und Dauer
     $self->distance($data[$lap]{'Aktive Distanz'});
     $self->duration($data[$lap]{'Aktive Dauer'});
@@ -137,6 +136,7 @@ sub as_html
     my $self = shift;
 
 	my $html ="
+<table>
   <tr align='right'>
     <td>Distanz:</td>
     <td>%s</td>
@@ -150,28 +150,31 @@ sub as_html
     <td>%s</td>
   </tr>
   <tr align='right'>
-    <td>Geschwindigkeit:</td>
+    <td>%s:</td>
     <td>%s</td>
-    <td>Anstieg:</td>
+    <td>Maximal:</td>
     <td>%s</td>
   </tr>
   <tr align='right'>
-    <td>Max. Geschwindigkeit:</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Anstieg:</td>
     <td>%s</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
     <td colspan='4' align='right'>%s bei %s</td>
-  </tr>";
+  </tr>
+</table>
+";
   return sprintf($html,
 	$self->distance,
 	$self->duration,
 	$self->heartrate,
 	$self->cadence,
-	$self->avgspeed,
+    ($self->activity eq 'Laufen') ? 'Pace' : 'Geschwindigkeit',
+    ($self->activity eq 'Laufen') ? $self->avgpace : $self->avgspeed,
+    ($self->activity eq 'Laufen') ? $self->maxpace : $self->maxspeed,
 	$self->increase,
-	$self->maxspeed,
 	$self->weather,
 	$self->temperature
   );
@@ -320,6 +323,7 @@ Folgende Attribute sind enthalten:
 
 =begin html
 
+<table border='1'>
   <tr align='right'>
     <td>Distanz:</td>
     <td>14,08 km</td>
@@ -333,27 +337,27 @@ Folgende Attribute sind enthalten:
     <td>82 rpm</td>
   </tr>
   <tr align='right'>
-    <td>Geschwindigkeit:</td>
-    <td>9,1 km/h</td>
-    <td>Anstieg:</td>
-    <td>45 m</td>
+    <td>Pace:</td>
+    <td>6:34 min/km</td>
+    <td>Maximal:</td>
+    <td>5:45 min/km</td>
   </tr>
   <tr align='right'>
-    <td>Max. Geschwindigkeit:</td>
-    <td>10,4 km/h</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
+    <td>Anstieg:</td>
+    <td>45 m</td>
   </tr>
   <tr>
     <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
   </tr>
+</table>
 
 =end html
 
 =head2 as_markdown
 
-=cut
-
+...
 
 =head1 DEPENDENCIES
 
