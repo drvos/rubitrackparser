@@ -129,6 +129,20 @@ sub _setAttributes
 #
 
 ################################################################################
+# title
+################################################################################
+sub title
+{
+    my $self = shift;
+
+    return sprintf("%s in %s am %s", 
+        $self->activity, 
+        $self->location, 
+        $self->date
+    );
+}
+
+################################################################################
 # as_html
 ################################################################################
 sub as_html
@@ -228,7 +242,6 @@ rtParser - Parser von exportierten Informationen aus der
 Software L<rubiTrack Pro|https://www.rubitrack.com>
 
 =head1 SYNOPSIS
-
   
   use rtParser;
   my $p = rtParser->new( 'rtexportfile' => '/rubi/track/export.html' );
@@ -322,6 +335,14 @@ alles darüber 'Radfahren'.
 
 =head1 METHODS
 
+=head2 C<title>
+
+Gibt einen Titel der aktuellen Aktivität aus.
+
+I<Laufen in Templin am 13.12.2020>
+
+=head2 Ausgabefunktionen
+
 Die folgenden Funktionen geben die geparsten Informationen (eine Auswahl) in einer
 formatierten Tabelle aus.
 Folgende Attribute sind enthalten:
@@ -346,9 +367,9 @@ Folgende Attribute sind enthalten:
 
 =back
 
-=head2 C<as_html>
+=head3 C<as_html>
 
-=head3 Ausgabe
+=head4 Ausgabe
 
   <table border='1'>
     <tr align='right'>
@@ -380,9 +401,9 @@ Folgende Attribute sind enthalten:
     </tr>
   </table>
 
-=head2 C<as_markdown>
+=head3 C<as_markdown>
 
-=head3 Ausgabe
+=head4 Ausgabe
 
   |Attribut    |Wert             |
   |:---        |---:             |
