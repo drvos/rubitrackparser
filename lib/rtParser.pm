@@ -18,7 +18,8 @@ my @data;
 
 =head1 NAME
 
-rtParser - Parser von exportierten Informationen aus der Software L<rubiTrack Pro|https://www.rubitrack.com>
+rtParser - Parser von exportierten Informationen aus der 
+Software L<rubiTrack Pro|https://www.rubitrack.com>
 
 =head1 SYNOPSIS
 
@@ -37,7 +38,8 @@ HTML-Tabelle
 
 =back
 
-Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
+Der genannte html-Export wird in Rubitrack mit der
+Veröffentlichen-Funktion erstellt.
 
 Folgende Daten werden aus der übergebenen Datei ermittelt:
 
@@ -218,12 +220,85 @@ sub _setAttributes
 
 =head2 as_html
 
+=begin html
+
+  <tr align='right'>
+    <td>Distanz:</td>
+    <td>%</td>
+    <td>Dauer:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Herzfrequenz:</td>
+    <td>%s</td>
+    <td>Trittfrequenz:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Geschwindigkeit:</td>
+    <td>%s</td>
+    <td>Anstieg:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Max. Geschwindigkeit:</td>
+    <td>%s</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='4' align='right'>
+      %s bei %s
+    </td>
+  </tr>
+
+=end html
+
 =cut
 
 sub as_html
 {
     my $self = shift;
 
+	my $html ="
+  <tr align='right'>
+    <td>Distanz:</td>
+    <td>%s</td>
+    <td>Dauer:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Herzfrequenz:</td>
+    <td>%s</td>
+    <td>Kadenz:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Geschwindigkeit:</td>
+    <td>%s</td>
+    <td>Anstieg:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Max. Geschwindigkeit:</td>
+    <td>%s</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='4' align='right'>%s bei %s</td>
+  </tr>";
+  return sprintf($html,
+	$self->distance,
+	$self->duration,
+	$self->heartrate,
+	$self->cadence,
+	$self->avgspeed,
+	$self->increase,
+	$self->maxspeed,
+	$self->weather,
+	$self->temperature
+  );
 }
 
 =head1 DEPENDENCIES
