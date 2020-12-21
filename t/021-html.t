@@ -24,9 +24,9 @@ my $html = "
   </tr>
   <tr align='right'>
     <td>Pace:</td>
-    <td>9,1 km/h</td>
+    <td>6:34 min/km</td>
     <td>Maximal:</td>
-    <td>10,4 km/h</td>
+    <td>5:45 min/km</td>
   </tr>
   <tr align='right'>
     <td>&nbsp;</td>

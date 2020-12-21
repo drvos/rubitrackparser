@@ -145,6 +145,8 @@ has 'avgspeed' => (
     } 
 );
 has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'avgpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'maxpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
@@ -194,14 +196,11 @@ sub _setAttributes
     my $self = shift;
     my $lap = shift; # Runde 0 = Zusammenfassung
 
-    # Geschwindigkeit bzw. Pace
-    if ($self->activity eq 'Laufen') {
-        $self->maxspeed($data[$lap]{'Maximale Pace'});
-        $self->avgspeed($data[$lap]{'Durchschn. Pace'});
-    } else {
-        $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
-        $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
-    }
+    # Geschwindigkeit und Pace
+    $self->maxpace($data[$lap]{'Maximaler Pace'});
+    $self->avgpace($data[$lap]{'Durchschn. Pace'});
+    $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
+    $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
     # Aktive Distanz und Dauer
     $self->distance($data[$lap]{'Aktive Distanz'});
     $self->duration($data[$lap]{'Aktive Dauer'});
@@ -262,16 +261,16 @@ Folgende Attribute sind enthalten:
     <td>82 rpm</td>
   </tr>
   <tr align='right'>
-    <td>Geschwindigkeit:</td>
+    <td>Pace:</td>
     <td>9,1 km/h</td>
-    <td>Anstieg:</td>
-    <td>45 m</td>
+    <td>Maximal:</td>
+    <td>10,4 km/h</td>
   </tr>
   <tr align='right'>
-    <td>Max. Geschwindigkeit:</td>
-    <td>10,4 km/h</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
+    <td>Anstieg:</td>
+    <td>45 m</td>
   </tr>
   <tr>
     <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
@@ -323,8 +322,8 @@ sub as_html
 	$self->heartrate,
 	$self->cadence,
     ($self->activity eq 'Laufen') ? 'Pace' : 'Geschwindigkeit',
-	$self->avgspeed,
-	$self->maxspeed,
+    ($self->activity eq 'Laufen') ? $self->avgpace : $self->avgspeed,
+    ($self->activity eq 'Laufen') ? $self->maxpace : $self->maxspeed,
 	$self->increase,
 	$self->weather,
 	$self->temperature
