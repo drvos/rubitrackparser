@@ -9,7 +9,7 @@ use namespace::autoclean;
 
 use v5.018;
 
-our $VERSION = '0.8';
+our $VERSION = '1.0';
 my @data;
 
 ###############################################################################
@@ -241,9 +241,13 @@ bestimmten Informationen des Exports eine formatierte Ausgabe:
 
 =over
 
-=item 1
+=item 1 
 
 HTML-Tabelle
+
+=item 2 
+
+Markdown-Tabelle
 
 =back
 
