@@ -58,7 +58,7 @@ alles darüber 'Radfahren'.
 
 # METHODS
 
-## `title`
+### `title`
 
 Gibt einen Titel der aktuellen Aktivität aus.
 

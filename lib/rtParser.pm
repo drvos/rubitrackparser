@@ -335,7 +335,7 @@ alles darüber 'Radfahren'.
 
 =head1 METHODS
 
-=head2 C<title>
+=head3 C<title>
 
 Gibt einen Titel der aktuellen Aktivität aus.
 
