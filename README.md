@@ -58,6 +58,14 @@ alles darüber 'Radfahren'.
 
 # METHODS
 
+## `title`
+
+Gibt einen Titel der aktuellen Aktivität aus.
+
+_Laufen in Templin am 13.12.2020_
+
+## Ausgabefunktionen
+
 Die folgenden Funktionen geben die geparsten Informationen (eine Auswahl) in einer
 formatierten Tabelle aus.
 Folgende Attribute sind enthalten:
@@ -71,9 +79,9 @@ Folgende Attribute sind enthalten:
 - Anstieg
 - Wetter und Temperatur
 
-## `as_html`
+### `as_html`
 
-### Ausgabe
+#### Ausgabe
 
     <table border='1'>
       <tr align='right'>
@@ -105,9 +113,9 @@ Folgende Attribute sind enthalten:
       </tr>
     </table>
 
-## `as_markdown`
+### `as_markdown`
 
-### Ausgabe
+#### Ausgabe
 
     |Attribut    |Wert             |
     |:---        |---:             |
