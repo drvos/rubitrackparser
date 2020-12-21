@@ -294,7 +294,7 @@ alles darüber 'Radfahren'.
 
 =head1 METHODS
 
-=head2 as_html
+=head2 C<as_html>
 
 Die Funktion I<as_html> gibt die geparsten Informationen (eine Auswahl) in einer
 formatierten Tabelle aus.
@@ -356,13 +356,13 @@ Folgende Attribute sind enthalten:
 
 =end html
 
-=head2 as_markdown
+=head2 C<as_markdown>
 
 ...
 
 =head1 DEPENDENCIES
 
-L<rtParser> requires L<Moose>, L<HTML::TagParser>.
+L<rtParser> requires L<Moose> and L<HTML::TagParser>.
 
 =head1 AUTHOR
 
