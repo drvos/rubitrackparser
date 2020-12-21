@@ -248,6 +248,7 @@ Folgende Attribute sind enthalten:
 
 =begin html
 
+<table border='1'>
   <tr align='right'>
     <td>Distanz:</td>
     <td>14,08 km</td>
@@ -275,6 +276,7 @@ Folgende Attribute sind enthalten:
   <tr>
     <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
   </tr>
+</table>
 
 =end html
 
@@ -285,6 +287,7 @@ sub as_html
     my $self = shift;
 
 	my $html ="
+<table>
   <tr align='right'>
     <td>Distanz:</td>
     <td>%s</td>
@@ -298,28 +301,31 @@ sub as_html
     <td>%s</td>
   </tr>
   <tr align='right'>
-    <td>Geschwindigkeit:</td>
+    <td>%s:</td>
     <td>%s</td>
-    <td>Anstieg:</td>
+    <td>Maximal:</td>
     <td>%s</td>
   </tr>
   <tr align='right'>
-    <td>Max. Geschwindigkeit:</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Anstieg:</td>
     <td>%s</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
   </tr>
   <tr>
     <td colspan='4' align='right'>%s bei %s</td>
-  </tr>";
+  </tr>
+</table>
+";
   return sprintf($html,
 	$self->distance,
 	$self->duration,
 	$self->heartrate,
 	$self->cadence,
+    ($self->activity eq 'Laufen') ? 'Pace' : 'Geschwindigkeit',
 	$self->avgspeed,
-	$self->increase,
 	$self->maxspeed,
+	$self->increase,
 	$self->weather,
 	$self->temperature
   );
