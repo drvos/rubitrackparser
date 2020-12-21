@@ -57,7 +57,7 @@ alles darüber 'Radfahren'.
 
 # METHODS
 
-## as\_html
+## `as_html`
 
 Die Funktion _as\_html_ gibt die geparsten Informationen (eine Auswahl) in einer
 formatierten Tabelle aus.
@@ -74,7 +74,6 @@ Folgende Attribute sind enthalten:
 
 ...
 
-<div>
     <table border='1'>
       <tr align='right'>
         <td>Distanz:</td>
@@ -104,15 +103,14 @@ Folgende Attribute sind enthalten:
         <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
       </tr>
     </table>
-</div>
 
-## as\_markdown
+## `as_markdown`
 
 ...
 
 # DEPENDENCIES
 
-[rtParser](https://metacpan.org/pod/rtParser) requires [Moose](https://metacpan.org/pod/Moose), [HTML::TagParser](https://metacpan.org/pod/HTML%3A%3ATagParser).
+[rtParser](https://metacpan.org/pod/rtParser) requires [Moose](https://metacpan.org/pod/Moose) and [HTML::TagParser](https://metacpan.org/pod/HTML%3A%3ATagParser).
 
 # AUTHOR
 
