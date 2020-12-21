@@ -241,9 +241,13 @@ bestimmten Informationen des Exports eine formatierte Ausgabe:
 
 =over
 
+<<<<<<< HEAD
 =item 1 
+=======
+=item 1 HTML-Tabelle
+>>>>>>> 5733ff94b6bdef5b1006340a3b3d2ef69a389d2f
 
-HTML-Tabelle
+=item 2 Markdown-Tabelle
 
 =item 2 
 
