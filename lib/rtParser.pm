@@ -325,6 +325,17 @@ sub as_html
   );
 }
 
+=head2 as_markdown
+
+=cut
+
+sub as_markdown
+{
+    my $self = shift;
+
+    return '';
+}
+
 =head1 DEPENDENCIES
 
 L<rtParser> requires L<Moose>, L<HTML::TagParser>.
