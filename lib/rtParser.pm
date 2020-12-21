@@ -187,7 +187,31 @@ sub as_markdown
 {
     my $self = shift;
 
-    return '';
+    my $md = "
+|Attribut|Wert|
+|:---|---:|
+|Distanz|%s|
+|Dauer|%s|
+|Herzfrequenz|%s|
+|Kadenz|%s|
+|%s|%s|
+|Maximal|%s|
+|Anstieg|%s|
+|Wetter|%s|
+|Temperatur|%s|
+";
+  return sprintf($md,
+	$self->distance,
+	$self->duration,
+	$self->heartrate,
+	$self->cadence,
+    ($self->activity eq 'Laufen') ? 'Pace' : 'Geschwindigkeit',
+    ($self->activity eq 'Laufen') ? $self->avgpace : $self->avgspeed,
+    ($self->activity eq 'Laufen') ? $self->maxpace : $self->maxspeed,
+	$self->increase,
+	$self->weather,
+	$self->temperature
+  );
 }
 
 no Moose;
@@ -294,9 +318,7 @@ alles darüber 'Radfahren'.
 
 =head1 METHODS
 
-=head2 C<as_html>
-
-Die Funktion I<as_html> gibt die geparsten Informationen (eine Auswahl) in einer
+Die folgenden Funktionen geben die geparsten Informationen (eine Auswahl) in einer
 formatierten Tabelle aus.
 Folgende Attribute sind enthalten:
 
@@ -320,7 +342,9 @@ Folgende Attribute sind enthalten:
 
 =back
 
-...
+=head2 C<as_html>
+
+=head3 Ausgabe
 
   <table border='1'>
     <tr align='right'>
@@ -354,7 +378,18 @@ Folgende Attribute sind enthalten:
 
 =head2 C<as_markdown>
 
-...
+=head3 Ausgabe
+
+  |Attribut    |Wert             |
+  |:---        |---:             |
+  |Distanz     |14,08 km         |
+  |Dauer       |1:32:35 hrs      |
+  |Herzfrequenz|142 bpm          |
+  |Kadenz      |82 rpm           |
+  |Pace        |6:34 min/km      |
+  |Maximal     |5:45 min/km      |
+  |Anstieg     |45 m             |
+  |Wetter      |Bewölkt bei 1,0 ℃|
 
 =head1 DEPENDENCIES
 

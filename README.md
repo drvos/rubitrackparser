@@ -57,9 +57,7 @@ alles darüber 'Radfahren'.
 
 # METHODS
 
-## `as_html`
-
-Die Funktion _as\_html_ gibt die geparsten Informationen (eine Auswahl) in einer
+Die folgenden Funktionen geben die geparsten Informationen (eine Auswahl) in einer
 formatierten Tabelle aus.
 Folgende Attribute sind enthalten:
 
@@ -72,7 +70,9 @@ Folgende Attribute sind enthalten:
 - Anstieg
 - Wetter und Temperatur
 
-...
+## `as_html`
+
+### Ausgabe
 
     <table border='1'>
       <tr align='right'>
@@ -106,7 +106,18 @@ Folgende Attribute sind enthalten:
 
 ## `as_markdown`
 
-...
+### Ausgabe
+
+    |Attribut    |Wert             |
+    |:---        |---:             |
+    |Distanz     |14,08 km         |
+    |Dauer       |1:32:35 hrs      |
+    |Herzfrequenz|142 bpm          |
+    |Kadenz      |82 rpm           |
+    |Pace        |6:34 min/km      |
+    |Maximal     |5:45 min/km      |
+    |Anstieg     |45 m             |
+    |Wetter      |Bewölkt bei 1,0 ℃|
 
 # DEPENDENCIES
 
