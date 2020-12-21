@@ -1,0 +1,13 @@
+CHANGELOG
+CONTRIBUTING.md
+lib/rtParser.pm
+Makefile.PL
+MANIFEST			This list of files
+README.md
+t/00-compile.t
+t/01-init.t
+t/02-export.t
+t/export/20201213-140543.html
+t/export/20201213-140543_activity.png
+t/export/20201213-140543_chart.png
+t/pod_validity.t
