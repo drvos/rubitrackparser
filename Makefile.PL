@@ -25,16 +25,17 @@ WriteMakefile
     BUILD_REQUIRES => {
     },
     EXE_FILES => [
+        'script/rtparser.pl'
     ],
     META_MERGE    => {
         'meta-spec' => { version => 1 },
          resources => {
-             #repository => {
-             #    type => 'git',
-             #    url  => 'https://github.com/szabgab/perlmaven.com.git',
-             #    web  => 'https://github.com/szabgab/perlmaveb.com',
-             #},
-             #bugtracker => {web => 'https://github.com/szabgab/perlmaven.com/issues'},
+             repository => {
+                 type => 'git',
+                 url  => 'https://github.com/drvos/rubitrackparser.git',
+                 web  => 'https://github.com/drvos/rubitrackparser',
+             },
+             bugtracker => {web => 'https://github.com/drvos/rubitrackparser/issues'},
              homepage   => 'https://volker-schering.de',
          },
     },
