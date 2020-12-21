@@ -20,6 +20,7 @@ WriteMakefile
           'Test::More'      => '0.47',
           'Test::Pod'       => '1.52',
           'Test::Compile'   => '2.4.1',
+          'Text::Diff'		=> '1.45',
     },
     BUILD_REQUIRES => {
     },
