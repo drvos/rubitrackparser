@@ -9,7 +9,7 @@ use namespace::autoclean;
 
 use v5.018;
 
-our $VERSION = '0.1';
+our $VERSION = '0.8';
 my @data;
 
 =pod
@@ -220,36 +220,60 @@ sub _setAttributes
 
 =head2 as_html
 
+Die Funktion I<as_html> gibt die geparsten Informationen (eine Auswahl) in einer
+formatierten Tabelle aus.
+Folgende Attribute sind enthalten:
+
+=over
+
+=item * Distanz
+
+=item * Dauer
+
+=item * Herzfrequenz
+
+=item * Kadenz
+
+=item * Durchschnittliche Geschwindigkeit/Pace
+
+=item * Maximale Geschwindigkeit/Pace
+
+=item * Anstieg
+
+=item * Wetter und Temperatur
+
+=back
+
+...
+
 =begin html
 
   <tr align='right'>
     <td>Distanz:</td>
-    <td>%</td>
+    <td>14,08 km</td>
     <td>Dauer:</td>
-    <td>%s</td>
+    <td>1:32:35 hrs</td>
   </tr>
   <tr align='right'>
     <td>Herzfrequenz:</td>
-    <td>%s</td>
-    <td>Trittfrequenz:</td>
-    <td>%s</td>
+    <td>142 bpm</td>
+    <td>Kadenz:</td>
+    <td>82 rpm</td>
   </tr>
   <tr align='right'>
     <td>Geschwindigkeit:</td>
-    <td>%s</td>
+    <td>9,1 km/h</td>
     <td>Anstieg:</td>
-    <td>%s</td>
+    <td>45 m</td>
   </tr>
   <tr align='right'>
     <td>Max. Geschwindigkeit:</td>
-    <td>%s</td>
+    <td>10,4 km/h</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td colspan='4' align='right'>
-      %s bei %s
-    </td>
+    <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
   </tr>
 
 =end html

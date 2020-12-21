@@ -1,6 +1,7 @@
 # NAME
 
-rtParser - Parser von exportierten Informationen aus der Software [rubiTrack Pro](https://www.rubitrack.com)
+rtParser - Parser von exportierten Informationen aus der 
+Software [rubiTrack Pro](https://www.rubitrack.com)
 
 # SYNOPSIS
 
@@ -13,7 +14,8 @@ bestimmten Informationen des Exports eine formatierte Ausgabe:
 
 1. HTML-Tabelle
 
-Der genannte html-Export wird in Rubitrack mit der Veröffentlichen-Funktion erstellt.
+Der genannte html-Export wird in Rubitrack mit der
+Veröffentlichen-Funktion erstellt.
 
 Folgende Daten werden aus der übergebenen Datei ermittelt:
 
@@ -54,6 +56,51 @@ alles darüber 'Radfahren'.
 # METHODS
 
 ## as\_html
+
+Die Funktion _as\_html_ gibt die geparsten Informationen (eine Auswahl) in einer
+formatierten Tabelle aus.
+Folgende Attribute sind enthalten:
+
+- Distanz
+- Dauer
+- Herzfrequenz
+- Kadenz
+- Durchschnittliche Geschwindigkeit/Pace
+- Maximale Geschwindigkeit/Pace
+- Anstieg
+- Wetter und Temperatur
+
+...
+
+<div>
+      <tr align='right'>
+        <td>Distanz:</td>
+        <td>14,08 km</td>
+        <td>Dauer:</td>
+        <td>1:32:35 hrs</td>
+      </tr>
+      <tr align='right'>
+        <td>Herzfrequenz:</td>
+        <td>142 bpm</td>
+        <td>Kadenz:</td>
+        <td>82 rpm</td>
+      </tr>
+      <tr align='right'>
+        <td>Geschwindigkeit:</td>
+        <td>9,1 km/h</td>
+        <td>Anstieg:</td>
+        <td>45 m</td>
+      </tr>
+      <tr align='right'>
+        <td>Max. Geschwindigkeit:</td>
+        <td>10,4 km/h</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan='4' align='right'>Bewölkt bei 1,0 ℃</td>
+      </tr>
+</div>
 
 # DEPENDENCIES
 
