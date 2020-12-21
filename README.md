@@ -14,7 +14,8 @@ Software [rubiTrack Pro](https://www.rubitrack.com)
 Der rtParser durchsucht ein html-Export von Rubitrack und erstellt aus
 bestimmten Informationen des Exports eine formatierte Ausgabe:
 
-1. HTML-Tabelle
+- 1 HTML-Tabelle
+- 2 Markdown-Tabelle
 
 Der genannte html-Export wird in Rubitrack mit der
 Veröffentlichen-Funktion erstellt.
