@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use v5.018;
 
-use Test::More tests => 4;
+use Test::More tests => 6;
 use Text::Diff;
 
 use lib '../lib';
