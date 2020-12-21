@@ -20,3 +20,6 @@ can_ok($p, qw(activity location date));
 my $msg = sprintf("%s in %s am %s", $p->activity, $p->location, $p->date);
 is($msg, 'Laufen in Templin, Stadtseerunde am 13.12.2020', 'Headline');
 
+can_ok($p, qw(title));
+is($p->title, 'Laufen in Templin, Stadtseerunde am 13.12.2020', 'Title');
+
