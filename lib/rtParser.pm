@@ -12,6 +12,187 @@ use v5.018;
 our $VERSION = '0.8';
 my @data;
 
+###############################################################################
+# attributes
+###############################################################################
+subtype 'RubiTrackExportFile'
+  => as 'Str'
+  => where { -e $_ }
+  => message { "Datei ($_) existiert nicht." };
+has 'rtexportfile' => (
+    is  => 'ro',
+    isa =>  'RubiTrackExportFile',
+    required => 1,
+    trigger => sub { 
+        &_parseData;
+        return
+    }
+);
+has 'location' => ( is  => 'rw', isa => 'Str', required => 0, default => '' );
+has 'date' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'time' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'laps' => ( is => 'rw', isa => 'Int', required => 0, default => 0 );
+has 'activity' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'avgspeed' => ( 
+    is => 'rw', 
+    isa => 'Str', 
+    trigger => sub {
+        my $self = shift;
+        my $avgspeed = $data[0]{'Durchschn. Geschwindigkeit'};
+        if (defined $avgspeed) {
+            my $g = int(substr( $avgspeed, 0, index( $avgspeed, ',' ) ) );
+            if ($g > 18) {
+                $self->activity('Radfahren');
+            } else {
+                $self->activity('Laufen');
+            }
+        }
+    } 
+);
+has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'cadence' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'power' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'increase' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'weather' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+
+################################################################################
+# _parseData
+################################################################################
+sub _parseData 
+{
+    my $self =shift;
+    my $i = 0;
+    my $html = HTML::TagParser->new( $self->rtexportfile );
+    foreach my $d ( $html->getElementsByClassName( "propertylist" ) ) {
+        my %kv;
+        foreach my $e ( $d->subTree->getElementsByClassName( "property" ) ) {
+            #my $k = ($e->firstChild)->innerText;
+		    #my $v = ($e->lastChild)->innerText;
+            #printf("%d. %s ==> %s\n", $i, $k, $v);
+            $kv{($e->firstChild)->innerText} = ($e->lastChild)->innerText;
+        }
+        push @data, \%kv;
+        $i++;
+    }
+
+    #print Dumper(@data);
+    
+    # Ort
+    my $elem = $html->getElementsByTagName( "title" );
+    $self->location( $elem->innerText() ) if ref $elem;
+    # Datum
+    $self->date($data[0]{'Datum'});
+    # Uhrzeit
+    $self->time($data[0]{'Uhrzeit'});
+    # Runden
+    $self->laps(--$i);
+    $self->_setAttributes(0);
+}
+
+################################################################################
+# _setAttributes
+################################################################################
+sub _setAttributes 
+{
+    my $self = shift;
+    my $lap = shift; # Runde 0 = Zusammenfassung
+
+    # Geschwindigkeit bzw. Pace
+    if ($self->activity eq 'Laufen') {
+        $self->maxspeed($data[$lap]{'Maximale Pace'});
+        $self->avgspeed($data[$lap]{'Durchschn. Pace'});
+    } else {
+        $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
+        $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
+    }
+    # Aktive Distanz und Dauer
+    $self->distance($data[$lap]{'Aktive Distanz'});
+    $self->duration($data[$lap]{'Aktive Dauer'});
+    # Herzfrequenz
+    $self->heartrate($data[$lap]{'Durchschn. Herzfrequenz'});
+    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
+    # Anstieg
+    $self->increase($data[$lap]{'Anstieg'});
+    # Kadenz und Leistung
+    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
+    $self->power($data[$lap]{'Durchschn. Leistung'});
+    # Wetter und Temperatur
+    $self->weather($data[$lap]{'Wetter'});
+    $self->temperature($data[$lap]{'Temperatur'});
+}
+
+#
+# Outputfunctions
+#
+
+################################################################################
+# as_html
+################################################################################
+sub as_html
+{
+    my $self = shift;
+
+	my $html ="
+  <tr align='right'>
+    <td>Distanz:</td>
+    <td>%s</td>
+    <td>Dauer:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Herzfrequenz:</td>
+    <td>%s</td>
+    <td>Kadenz:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Geschwindigkeit:</td>
+    <td>%s</td>
+    <td>Anstieg:</td>
+    <td>%s</td>
+  </tr>
+  <tr align='right'>
+    <td>Max. Geschwindigkeit:</td>
+    <td>%s</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='4' align='right'>%s bei %s</td>
+  </tr>";
+  return sprintf($html,
+	$self->distance,
+	$self->duration,
+	$self->heartrate,
+	$self->cadence,
+	$self->avgspeed,
+	$self->increase,
+	$self->maxspeed,
+	$self->weather,
+	$self->temperature
+  );
+}
+
+################################################################################
+# as_markdown
+################################################################################
+sub as_markdown
+{
+    my $self = shift;
+
+    return '';
+}
+
+no Moose;
+__PACKAGE__->meta->make_immutable;
+1;
+
+__END__
+
 =pod
 
 =encoding utf8
@@ -107,116 +288,7 @@ alles darüber 'Radfahren'.
 
 =back
 
-=cut
-
-subtype 'RubiTrackExportFile'
-  => as 'Str'
-  => where { -e $_ }
-  => message { "Datei ($_) existiert nicht." };
-
-has 'rtexportfile' => (
-    is  => 'ro',
-    isa =>  'RubiTrackExportFile',
-    required => 1,
-    trigger => sub { 
-        &_parseData;
-        return
-    }
-);
-has 'location' => ( is  => 'rw', isa => 'Str', required => 0, default => '' );
-has 'date' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'time' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'laps' => ( is => 'rw', isa => 'Int', required => 0, default => 0 );
-has 'activity' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'avgspeed' => ( 
-    is => 'rw', 
-    isa => 'Str', 
-    trigger => sub {
-        my $self = shift;
-        my $avgspeed = $data[0]{'Durchschn. Geschwindigkeit'};
-        if (defined $avgspeed) {
-            my $g = int(substr( $avgspeed, 0, index( $avgspeed, ',' ) ) );
-            if ($g > 18) {
-                $self->activity('Radfahren');
-            } else {
-                $self->activity('Laufen');
-            }
-        }
-    } 
-);
-has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'cadence' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'power' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'increase' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'weather' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-
 =head1 METHODS
-
-=cut
-
-sub _parseData 
-{
-    my $self =shift;
-    my $i = 0;
-    my $html = HTML::TagParser->new( $self->rtexportfile );
-    foreach my $d ( $html->getElementsByClassName( "propertylist" ) ) {
-        my %kv;
-        foreach my $e ( $d->subTree->getElementsByClassName( "property" ) ) {
-            #my $k = ($e->firstChild)->innerText;
-		    #my $v = ($e->lastChild)->innerText;
-            #printf("%d. %s ==> %s\n", $i, $k, $v);
-            $kv{($e->firstChild)->innerText} = ($e->lastChild)->innerText;
-        }
-        push @data, \%kv;
-        $i++;
-    }
-
-    #print Dumper(@data);
-    
-    # Ort
-    my $elem = $html->getElementsByTagName( "title" );
-    $self->location( $elem->innerText() ) if ref $elem;
-    # Datum
-    $self->date($data[0]{'Datum'});
-    # Uhrzeit
-    $self->time($data[0]{'Uhrzeit'});
-    # Runden
-    $self->laps(--$i);
-    $self->_setAttributes(0);
-}
-
-sub _setAttributes 
-{
-    my $self = shift;
-    my $lap = shift; # Runde 0 = Zusammenfassung
-
-    # Geschwindigkeit bzw. Pace
-    if ($self->activity eq 'Laufen') {
-        $self->maxspeed($data[$lap]{'Maximale Pace'});
-        $self->avgspeed($data[$lap]{'Durchschn. Pace'});
-    } else {
-        $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
-        $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
-    }
-    # Aktive Distanz und Dauer
-    $self->distance($data[$lap]{'Aktive Distanz'});
-    $self->duration($data[$lap]{'Aktive Dauer'});
-    # Herzfrequenz
-    $self->heartrate($data[$lap]{'Durchschn. Herzfrequenz'});
-    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
-    # Anstieg
-    $self->increase($data[$lap]{'Anstieg'});
-    # Kadenz und Leistung
-    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
-    $self->power($data[$lap]{'Durchschn. Leistung'});
-    # Wetter und Temperatur
-    $self->weather($data[$lap]{'Wetter'});
-    $self->temperature($data[$lap]{'Temperatur'});
-}
 
 =head2 as_html
 
@@ -278,63 +350,10 @@ Folgende Attribute sind enthalten:
 
 =end html
 
-=cut
-
-sub as_html
-{
-    my $self = shift;
-
-	my $html ="
-  <tr align='right'>
-    <td>Distanz:</td>
-    <td>%s</td>
-    <td>Dauer:</td>
-    <td>%s</td>
-  </tr>
-  <tr align='right'>
-    <td>Herzfrequenz:</td>
-    <td>%s</td>
-    <td>Kadenz:</td>
-    <td>%s</td>
-  </tr>
-  <tr align='right'>
-    <td>Geschwindigkeit:</td>
-    <td>%s</td>
-    <td>Anstieg:</td>
-    <td>%s</td>
-  </tr>
-  <tr align='right'>
-    <td>Max. Geschwindigkeit:</td>
-    <td>%s</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan='4' align='right'>%s bei %s</td>
-  </tr>";
-  return sprintf($html,
-	$self->distance,
-	$self->duration,
-	$self->heartrate,
-	$self->cadence,
-	$self->avgspeed,
-	$self->increase,
-	$self->maxspeed,
-	$self->weather,
-	$self->temperature
-  );
-}
-
 =head2 as_markdown
 
 =cut
 
-sub as_markdown
-{
-    my $self = shift;
-
-    return '';
-}
 
 =head1 DEPENDENCIES
 
@@ -344,8 +363,10 @@ L<rtParser> requires L<Moose>, L<HTML::TagParser>.
 
 Volker Schering E<lt>mailE<64>volker-schering.deE<gt>
 
-=cut
-
-no Moose;
-__PACKAGE__->meta->make_immutable;
-1;
+=head1 COPYRIGHT AND LICENSE
+ 
+Copyright 2020 by Volker Schering
+ 
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+ 
