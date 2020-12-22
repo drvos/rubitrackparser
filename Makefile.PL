@@ -15,12 +15,14 @@ WriteMakefile
           'File::Basename'  => '0',
           'Moose'           => '0.24',
           'HTML::TagParser' => '0.20',
+          'File::Basename'  => '0',
     },
     TEST_REQUIRES => {
           'Test::More'      => '0.47',
           'Test::Pod'       => '1.52',
           'Test::Compile'   => '2.4.1',
           'Text::Diff'		=> '1.45',
+          'File::Basename'  => '0',
     },
     BUILD_REQUIRES => {
     },

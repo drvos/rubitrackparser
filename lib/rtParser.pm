@@ -3,6 +3,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 
 use HTML::TagParser;
+use File::Basename;
 use Data::Dumper;
 
 use namespace::autoclean;
@@ -18,16 +19,33 @@ my @data;
 subtype 'RubiTrackExportFile'
   => as 'Str'
   => where { -e $_ }
-  => message { "Datei ($_) existiert nicht." };
-has 'rtexportfile' => (
-    is  => 'ro',
-    isa =>  'RubiTrackExportFile',
+  => message { "File not found ($_)" };
+has 'rtexportfile' => ( 
+    is  => 'ro', 
+    isa =>  'RubiTrackExportFile', 
     required => 1,
-    trigger => sub { 
+    trigger => sub {
         &_parseData;
-        return
-    }
+    },
 );
+around 'rtexportfile' => sub {
+    my $orig = shift;
+    my $self = shift;
+    my($filename, $dirs, $suffix) = fileparse($self->$orig(), qr/\.[^.]*/);
+    $self->rtactivitypicture(sprintf("%s%s_activity.png", $dirs, $filename));
+    return $self->$orig();
+};
+
+subtype 'RubiTrackActivityPicture'
+  => as 'Str'
+  => where { -e $_ }
+  => message { "File not found ($_)" };
+has 'rtactivitypicture' => (
+    is  => 'rw', 
+    isa => 'RubiTrackActivityPicture', 
+    required => 0,
+);
+
 has 'location' => ( is  => 'rw', isa => 'Str', required => 0, default => '' );
 has 'date' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'time' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
@@ -47,7 +65,7 @@ has 'avgspeed' => (
                 $self->activity('Laufen');
             }
         }
-    } 
+    }, 
 );
 has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'avgpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
