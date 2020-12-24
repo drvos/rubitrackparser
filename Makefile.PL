@@ -41,5 +41,7 @@ WriteMakefile
              homepage   => 'https://volker-schering.de',
          },
     },
-
+    dist => {
+      PREOP => 'perldoc -u lib/rtParser.pm | pod2markdown > README.md',
+    },
 );
