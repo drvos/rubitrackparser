@@ -68,21 +68,21 @@ has 'avgspeed' => (
         }
     }, 
 );
-has 'maxspeed' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'avgpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'maxpace' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'distance' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'duration' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'heartrate' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'cadence' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'power' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'increase' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'weather' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
-has 'temperature' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'maxspeed' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'avgpace' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'maxpace' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'distance' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'duration' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'heartrate' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'cadence' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'power' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'increase' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'weather' => (is => 'rw', isa => 'Str', required => 0, default => '');
+has 'temperature' => (is => 'rw', isa => 'Str', required => 0, default => '');
 
-################################################################################
+###############################################################################
 # _parseData
-################################################################################
+###############################################################################
 sub _parseData 
 {
     my $self =shift;
@@ -114,42 +114,55 @@ sub _parseData
     $self->_setAttributes(0);
 }
 
-################################################################################
+###############################################################################
 # _setAttributes
-################################################################################
+###############################################################################
 sub _setAttributes 
 {
     my $self = shift;
     my $lap = shift; # Runde 0 = Zusammenfassung
 
     # Geschwindigkeit und Pace
-    $self->maxpace($data[$lap]{'Maximaler Pace'});
-    $self->avgpace($data[$lap]{'Durchschn. Pace'});
-    $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'});
-    $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'});
+    $self->maxpace($data[$lap]{'Maximaler Pace'}) if
+        $data[$lap]{'Maximaler Pace'};
+    $self->avgpace($data[$lap]{'Durchschn. Pace'}) if
+        $data[$lap]{'Durchschn. Pace'};
+    $self->maxspeed($data[$lap]{'Maximale Geschwindigkeit'}) if
+        $data[$lap]{'Maximale Geschwindigkeit'};
+    $self->avgspeed($data[$lap]{'Durchschn. Geschwindigkeit'}) if
+        $data[$lap]{'Durchschn. Geschwindigkeit'};
     # Aktive Distanz und Dauer
-    $self->distance($data[$lap]{'Aktive Distanz'});
-    $self->duration($data[$lap]{'Aktive Dauer'});
+    $self->distance($data[$lap]{'Aktive Distanz'}) if
+        $data[$lap]{'Aktive Distanz'};
+    $self->duration($data[$lap]{'Aktive Dauer'}) if
+        $data[$lap]{'Aktive Dauer'};
     # Herzfrequenz
-    $self->heartrate($data[$lap]{'Durchschn. Herzfrequenz'});
-    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
+    $self->heartrate($data[$lap]{'Durchschn. Herzfrequenz'}) if
+        $data[$lap]{'Durchschn. Herzfrequenz'};
+    $self->cadence($data[$lap]{'Durchschn. Kadenz'}) if
+        $data[$lap]{'Durchschn. Kadenz'};
     # Anstieg
-    $self->increase($data[$lap]{'Anstieg'});
+    $self->increase($data[$lap]{'Anstieg'}) if
+        $data[$lap]{'Anstieg'};
     # Kadenz und Leistung
-    $self->cadence($data[$lap]{'Durchschn. Kadenz'});
-    $self->power($data[$lap]{'Durchschn. Leistung'});
+    $self->cadence($data[$lap]{'Durchschn. Kadenz'}) if
+        $data[$lap]{'Durchschn. Kadenz'};
+    $self->power($data[$lap]{'Durchschn. Leistung'}) if 
+        $data[$lap]{'Durschn. Leistung'};
     # Wetter und Temperatur
-    $self->weather($data[$lap]{'Wetter'});
-    $self->temperature($data[$lap]{'Temperatur'});
+    $self->weather($data[$lap]{'Wetter'}) if
+        $data[$lap]{'Wetter'};
+    $self->temperature($data[$lap]{'Temperatur'}) if
+        $data[$lap]{'Temperatur'};
 }
 
 #
 # Outputfunctions
 #
 
-################################################################################
+###############################################################################
 # title
-################################################################################
+###############################################################################
 sub title
 {
     my $self = shift;
@@ -161,9 +174,9 @@ sub title
     );
 }
 
-################################################################################
+###############################################################################
 # as_html
-################################################################################
+###############################################################################
 sub as_html
 {
     my $self = shift;
@@ -211,9 +224,9 @@ sub as_html
   );
 }
 
-################################################################################
+###############################################################################
 # as_markdown
-################################################################################
+###############################################################################
 sub as_markdown
 {
     my $self = shift;
