@@ -1,4 +1,5 @@
 package rtParser;
+use utf8;
 use Moose;
 use Moose::Util::TypeConstraints;
 
