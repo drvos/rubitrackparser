@@ -29,9 +29,11 @@ Folgende Daten werden aus der übergebenen Datei ermittelt:
 - Anstieg
 - Wetter und Temperatur
 
-Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt. 
-Eine Durchschnittsgeschwindigkeit kleiner 18 km/h ergibt 'Laufen',
-alles darüber 'Radfahren'. 
+Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt.
+
+- bis 6 km/h ergibt 'Wandern'
+- größer 6 km/h ergibt 'Laufen'
+- größer 18 km/h ergibt 'Radfahren'
 
 # ATTRIBUTES
 

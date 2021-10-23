@@ -62,8 +62,10 @@ has 'avgspeed' => (
             my $g = int(substr( $avgspeed, 0, index( $avgspeed, ',' ) ) );
             if ($g > 18) {
                 $self->activity('Radfahren');
-            } else {
+            } elsif ($g > 6) {
                 $self->activity('Laufen');
+            } else {
+                $self->activity('Wandern');
             }
         }
     }, 
@@ -272,7 +274,7 @@ rtParser - Parser von exportierten Informationen aus der
 Software L<rubiTrack Pro|https://www.rubitrack.com>
 
 =head1 SYNOPSIS
-  
+
   use rtParser;
   my $p = rtParser->new( 'rtexportfile' => '/rubi/track/export.html' );
   say $p->as_html();
@@ -315,9 +317,17 @@ Folgende Daten werden aus der übergebenen Datei ermittelt:
 
 =back
 
-Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt. 
-Eine Durchschnittsgeschwindigkeit kleiner 18 km/h ergibt 'Laufen',
-alles darüber 'Radfahren'. 
+Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt.
+
+=over
+
+=item bis 6 km/h ergibt 'Wandern'
+
+=item größer 6 km/h ergibt 'Laufen'
+
+=item größer 18 km/h ergibt 'Radfahren'
+
+=back
 
 =head1 ATTRIBUTES
 
