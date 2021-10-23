@@ -148,7 +148,7 @@ sub _setAttributes
     $self->cadence($data[$lap]{'Durchschn. Kadenz'}) if
         $data[$lap]{'Durchschn. Kadenz'};
     $self->power($data[$lap]{'Durchschn. Leistung'}) if 
-        $data[$lap]{'Durschn. Leistung'};
+        $data[$lap]{'Durchschn. Leistung'};
     # Wetter und Temperatur
     $self->weather($data[$lap]{'Wetter'}) if
         $data[$lap]{'Wetter'};
