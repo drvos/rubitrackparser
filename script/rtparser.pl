@@ -15,6 +15,7 @@ my ($file) = @ARGV;
 die "Need rubiTrack Exportfile\n" unless defined $file;
 
 my $p = rtParser->new( 'rtexportfile' => $file );
+say $p->title();
 say $p->as_html();
 
 exit 0;
