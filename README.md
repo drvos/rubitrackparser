@@ -132,6 +132,14 @@ Folgende Attribute sind enthalten:
 
 [rtParser](https://metacpan.org/pod/rtParser) requires [Moose](https://metacpan.org/pod/Moose) and [HTML::TagParser](https://metacpan.org/pod/HTML%3A%3ATagParser).
 
+## Installation Dependencies
+
+    cpm install -g
+
+or
+
+    cpanm --installdeps .
+
 # AUTHOR
 
 Volker Schering <mail@volker-schering.de>

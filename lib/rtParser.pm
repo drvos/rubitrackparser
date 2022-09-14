@@ -458,6 +458,16 @@ Folgende Attribute sind enthalten:
 
 L<rtParser> requires L<Moose> and L<HTML::TagParser>.
 
+=head2 Installation Dependencies
+
+ cpm install -g
+
+or
+
+ cpanm --installdeps .
+
+=cut
+
 =head1 AUTHOR
 
 Volker Schering E<lt>mailE<64>volker-schering.deE<gt>
