@@ -134,7 +134,13 @@ Folgende Attribute sind enthalten:
 
 ## Installation Dependencies
 
+### without SSL Support
+
     cpm install -g
+
+### with SSL Support
+
+    cpm install -g --feature=ssl
 
 or
 
