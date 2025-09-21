@@ -60,7 +60,7 @@ has 'avgspeed' => (
         my $avgspeed = $data[0]{'Durchschn. Geschwindigkeit'};
         if (defined $avgspeed) {
             my $g = int(substr( $avgspeed, 0, index( $avgspeed, ',' ) ) );
-            if ($g > 18) {
+            if ($g > 15) {
                 $self->activity('Radfahren');
             } elsif ($g > 6) {
                 $self->activity('Laufen');

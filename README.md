@@ -33,7 +33,7 @@ Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt.
 
 - bis 6 km/h ergibt 'Wandern'
 - größer 6 km/h ergibt 'Laufen'
-- größer 18 km/h ergibt 'Radfahren'
+- größer 15 km/h ergibt 'Radfahren'
 
 # ATTRIBUTES
 
