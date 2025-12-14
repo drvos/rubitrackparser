@@ -42,6 +42,7 @@ Die Art der Aktivität wird über die Durchschnittsgeschwindigkeit ermittelt.
 - location    Ort
 - date        Datum
 - time        Uhrzeit
+- isodate     ISODate YYYY-MM-DDThh:mm
 - laps        Runden
 - activity    Art der Aktivität
 
@@ -133,16 +134,6 @@ Folgende Attribute sind enthalten:
 [rtParser](https://metacpan.org/pod/rtParser) requires [Moose](https://metacpan.org/pod/Moose) and [HTML::TagParser](https://metacpan.org/pod/HTML%3A%3ATagParser).
 
 ## Installation Dependencies
-
-### without SSL Support
-
-    cpm install -g
-
-### with SSL Support
-
-    cpm install -g --feature=ssl
-
-or
 
     cpanm --installdeps .
 

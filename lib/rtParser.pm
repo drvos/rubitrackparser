@@ -6,6 +6,7 @@ use Moose::Util::TypeConstraints;
 use HTML::TagParser;
 use File::Basename;
 use Data::Dumper;
+use Time::Piece;
 
 use namespace::autoclean;
 
@@ -50,6 +51,7 @@ has 'rtactivitypicture' => (
 has 'location' => ( is  => 'rw', isa => 'Str', required => 0, default => '' );
 has 'date' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'time' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
+has 'isodate' => ( is => 'rw', isa => 'Str', required => 0, default => '', lazy => 1 );
 has 'laps' => ( is => 'rw', isa => 'Int', required => 0, default => 0 );
 has 'activity' => ( is => 'rw', isa => 'Str', required => 0, default => '' );
 has 'avgspeed' => ( 
@@ -111,6 +113,10 @@ sub _parseData
     $self->date($data[0]{'Datum'});
     # Uhrzeit
     $self->time($data[0]{'Uhrzeit'});
+    # ISODate
+    my $s = sprintf("%s %s", $self->date, $self->time);
+    my $dt = Time::Piece->strptime($s, "%d.%m.%Y %R");
+    $self->isodate($dt->strftime("%Y-%m-%dT%H:%M")); 
     # Runden
     $self->laps(--$i);
     $self->_setAttributes(0);
