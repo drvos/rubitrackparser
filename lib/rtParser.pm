@@ -119,7 +119,7 @@ sub _parseData
     # ISODate
     my $s = sprintf("%s %s", $self->date, $self->time);
     my $dt = Time::Piece->strptime($s, "%d.%m.%Y %R");
-    $self->isodate($dt->strftime("%Y-%m-%dT%H:%M")); 
+    $self->isodate($dt->strftime("%Y-%m-%dT%H:%M:%S")); 
     # Runden
     $self->laps(--$i);
     $self->_setAttributes(0);

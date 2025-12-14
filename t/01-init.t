@@ -27,7 +27,7 @@ is( $p->date, '13.12.2020', sprintf("date: %s", $p->date) );
 is( $p->time, '14:05', sprintf("time: %s", $p->time) );
 
 can_ok($p, qw(isodate));
-is( $p->isodate, '2020-12-13T14:05', sprintf("isodate: %s", $p->isodate) );
+is( $p->isodate, '2020-12-13T14:05:00', sprintf("isodate: %s", $p->isodate) );
 
 can_ok($p, qw(laps activity));
 is( $p->laps, 15, sprintf("laps: %s", $p->laps) );
