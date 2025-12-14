@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use v5.018;
+use utf8;
 
 use Test::More tests => 4;
 use Text::Diff;

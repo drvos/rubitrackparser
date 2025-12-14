@@ -3,6 +3,7 @@ use utf8;
 use Moose;
 use Moose::Util::TypeConstraints;
 
+use Encode qw(encode_utf8);
 use HTML::TagParser;
 use File::Basename;
 use Data::Dumper;
@@ -11,6 +12,8 @@ use Time::Piece;
 use namespace::autoclean;
 
 use v5.018;
+
+binmode(STDOUT, ":utf8"); 
 
 our $VERSION = '1.1';
 my @data;
@@ -174,12 +177,13 @@ sub _setAttributes
 sub title
 {
     my $self = shift;
-
-    return sprintf("%s in %s am %s", 
+    my $title = sprintf("%s in %s am %s", 
         $self->activity, 
         $self->location, 
         $self->date
     );
+    utf8::decode($title);
+    return $title;
 }
 
 ###############################################################################
@@ -188,7 +192,6 @@ sub title
 sub as_html
 {
     my $self = shift;
-
 	my $html ="
 <tr align='right'>
   <td>Distanz:</td>
@@ -218,7 +221,7 @@ sub as_html
   <td colspan='4' align='right'>%s bei %s</td>
 </tr>
 ";
-  return sprintf($html,
+  my $out = sprintf($html,
 	$self->distance,
 	$self->duration,
 	$self->heartrate,
@@ -230,6 +233,8 @@ sub as_html
 	$self->weather,
 	$self->temperature
   );
+  utf8::decode($out);
+  return $out;
 }
 
 ###############################################################################
@@ -238,7 +243,6 @@ sub as_html
 sub as_markdown
 {
     my $self = shift;
-
     my $md = "
 |Attribut|Wert|
 |:---|---:|
@@ -252,7 +256,7 @@ sub as_markdown
 |Wetter|%s|
 |Temperatur|%s|
 ";
-  return sprintf($md,
+    my $out = sprintf($md,
 	$self->distance,
 	$self->duration,
 	$self->heartrate,
@@ -264,6 +268,8 @@ sub as_markdown
 	$self->weather,
 	$self->temperature
   );
+  utf8::decode($out);
+  return $out;
 }
 
 no Moose;
